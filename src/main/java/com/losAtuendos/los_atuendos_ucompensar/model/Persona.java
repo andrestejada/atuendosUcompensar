@@ -3,7 +3,6 @@ package com.losAtuendos.los_atuendos_ucompensar.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @MappedSuperclass
 @Data
@@ -23,5 +22,4 @@ public abstract class Persona {
         this.direccion = direccion;
         this.telefono = telefono;
     }
-    // Getters y setters
 }
