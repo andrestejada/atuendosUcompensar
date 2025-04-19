@@ -18,4 +18,9 @@ public class ClienteRepositoryAdapter implements  ClienteRepository{
         Cliente newCliente = this.clienteRepositoryJpa.save(cliente);
         return newCliente;
     }
+
+    @Override
+    public Cliente buscarPorId(String id) {
+        return this.clienteRepositoryJpa.findById(id).orElse(null);
+    }
 }
