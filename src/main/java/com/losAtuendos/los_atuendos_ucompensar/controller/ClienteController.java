@@ -22,8 +22,7 @@ public class ClienteController {
         return this.clienteService.crearCliente(dto);
     }
 
-    @GetMapping
-    public Cliente obtenerCliente(@RequestParam String id){
+    @GetMapping("/{id}")
+    public Cliente obtenerCliente(@PathVariable String id) {
         return this.clienteService.obtenerCliente(id);
-    }
-}
+    }}
