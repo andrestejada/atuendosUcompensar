@@ -1,11 +1,14 @@
 package com.losAtuendos.los_atuendos_ucompensar.dto.prenda;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
 public abstract class BasePrendaDto {
-    @NotBlank(message = "referencia es requerida")
+    @NotNull(message = "referencia es requerida")
+    @Positive
     private Integer ref;
 
     @NotBlank
@@ -17,6 +20,7 @@ public abstract class BasePrendaDto {
     @NotBlank
     private String talla;
 
-    @NotBlank
+    @NotNull
+    @Positive
     private double valorAlquiler;
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public abstract class Prenda {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(unique = true, nullable = false)
     private Integer ref;
     private String color;
     private String marca;
