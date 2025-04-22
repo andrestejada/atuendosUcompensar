@@ -2,6 +2,7 @@ package com.losAtuendos.los_atuendos_ucompensar.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,5 +16,9 @@ public class Disfraz extends Prenda {
     public Disfraz(Integer ref, String color, String marca, String talla, double valorAlquiler, String nombre) {
         super(ref, color, marca, talla, valorAlquiler);
         this.nombre = nombre;
+    }
+
+    public Disfraz() {
+
     }
 }
