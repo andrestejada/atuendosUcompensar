@@ -10,6 +10,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -31,7 +32,7 @@ public class PrendaController {
     }
 
     @PostMapping("/{type}")
-    public void crearPrenda(@PathVariable String type, @RequestBody Map<String, Object> body) throws Exception {
+    public ResponseEntity<String> crearPrenda(@PathVariable String type, @RequestBody Map<String, Object> body) throws Exception {
         PrendaFactory prendaFactory;
         Prenda prendaParaCrear;
 
@@ -56,9 +57,10 @@ public class PrendaController {
                 prendaFactory = disfrazFactory;
                 break;
             default:
-                throw new Exception("Tipo de prenda no soportado");
+                throw new BadRequestException("Tipo de prenda no soportado");
         }
 
         prendaFactory.guardarPrenda(prendaParaCrear);
+        return ResponseEntity.status(201).body("Prenda creada con éxito");
     }
 }

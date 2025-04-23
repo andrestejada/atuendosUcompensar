@@ -21,4 +21,7 @@ public class VestidoDama extends Prenda {
         this.altura = altura;
         this.cantPiezas = cantPiezas;
     }
+
+    public VestidoDama() {
+    }
 }

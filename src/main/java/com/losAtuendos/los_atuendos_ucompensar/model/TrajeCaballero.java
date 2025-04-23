@@ -18,4 +18,6 @@ public class TrajeCaballero extends Prenda {
         this.tipo = tipo;
         this.aderezo = aderezo;
     }
+
+    public TrajeCaballero(){}
 }
