@@ -1,7 +1,9 @@
 package com.losAtuendos.los_atuendos_ucompensar.repository.prenda.traje_caballero;
 
 import com.losAtuendos.los_atuendos_ucompensar.model.TrajeCaballero;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TrajeCaballeroAdapter implements TrajeCaballeroRepository{
 
     private final TrajeCaballeroRepositoryJpa trajeCaballeroRepositoryJpa;

@@ -2,10 +2,13 @@ package com.losAtuendos.los_atuendos_ucompensar.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.losAtuendos.los_atuendos_ucompensar.dto.prenda.CrearDisfrazDto;
+import com.losAtuendos.los_atuendos_ucompensar.dto.prenda.CrearTrajeCaballeroDto;
 import com.losAtuendos.los_atuendos_ucompensar.model.Disfraz;
 import com.losAtuendos.los_atuendos_ucompensar.model.Prenda;
-import com.losAtuendos.los_atuendos_ucompensar.service.Prenda.DisfrazFactory;
-import com.losAtuendos.los_atuendos_ucompensar.service.Prenda.PrendaFactory;
+import com.losAtuendos.los_atuendos_ucompensar.model.TrajeCaballero;
+import com.losAtuendos.los_atuendos_ucompensar.service.prenda.disfraz.DisfrazFactory;
+import com.losAtuendos.los_atuendos_ucompensar.service.prenda.PrendaFactory;
+import com.losAtuendos.los_atuendos_ucompensar.service.prenda.traje_caballero.TrajeCaballeroFactory;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.apache.coyote.BadRequestException;
@@ -23,12 +26,14 @@ public class PrendaController {
     private final ObjectMapper mapper;
     private final Validator validator;
     private final DisfrazFactory disfrazFactory;
+    private final TrajeCaballeroFactory trajeCaballeroFactory;
 
     @Autowired
-    public PrendaController(ObjectMapper mapper, Validator validator, DisfrazFactory disfrazFactory) {
+    public PrendaController(ObjectMapper mapper, Validator validator, DisfrazFactory disfrazFactory,TrajeCaballeroFactory trajeCaballeroFactory) {
         this.mapper = mapper;
         this.validator = validator;
         this.disfrazFactory = disfrazFactory;
+        this.trajeCaballeroFactory = trajeCaballeroFactory;
     }
 
     @PostMapping("/{type}")
@@ -56,6 +61,23 @@ public class PrendaController {
                 prendaParaCrear = new Disfraz(dto.getRef(), dto.getColor(), dto.getColor(), dto.getTalla(), dto.getValorAlquiler(), dto.getNombre());
                 prendaFactory = disfrazFactory;
                 break;
+            case "traje_caballero":
+                if (!body.containsKey("ref") || !body.containsKey("color") || !body.containsKey("talla") ||
+                        !body.containsKey("valorAlquiler") || !body.containsKey("marca")) {
+                    throw new BadRequestException("faltan propiedades");
+                }
+
+                CrearTrajeCaballeroDto dtoTraje = mapper.convertValue(body, CrearTrajeCaballeroDto.class);
+
+                // Validate the DTO
+                Set<ConstraintViolation<CrearTrajeCaballeroDto>> violationsTraje = validator.validate(dtoTraje);
+                if (!violationsTraje.isEmpty()) {
+                    throw new IllegalArgumentException("Validation failed: " + violationsTraje);
+                }
+
+                // Create the TrajeCaballero object
+                prendaParaCrear = new TrajeCaballero(dtoTraje.getRef(), dtoTraje.getColor(), dtoTraje.getMarca(), dtoTraje.getTalla(), dtoTraje.getValorAlquiler(), dtoTraje.getTipo(), dtoTraje.getAderezo());
+                prendaFactory = trajeCaballeroFactory;
             default:
                 throw new BadRequestException("Tipo de prenda no soportado");
         }

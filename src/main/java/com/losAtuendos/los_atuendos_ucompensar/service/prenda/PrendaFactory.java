@@ -1,4 +1,4 @@
-package com.losAtuendos.los_atuendos_ucompensar.service.Prenda;
+package com.losAtuendos.los_atuendos_ucompensar.service.prenda;
 
 import com.losAtuendos.los_atuendos_ucompensar.model.Prenda;
 
