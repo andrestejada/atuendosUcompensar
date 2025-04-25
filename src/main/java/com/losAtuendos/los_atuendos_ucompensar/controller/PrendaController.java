@@ -3,12 +3,15 @@ package com.losAtuendos.los_atuendos_ucompensar.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.losAtuendos.los_atuendos_ucompensar.dto.prenda.CrearDisfrazDto;
 import com.losAtuendos.los_atuendos_ucompensar.dto.prenda.CrearTrajeCaballeroDto;
+import com.losAtuendos.los_atuendos_ucompensar.dto.prenda.CrearVestidoDamaDto;
 import com.losAtuendos.los_atuendos_ucompensar.model.Disfraz;
 import com.losAtuendos.los_atuendos_ucompensar.model.Prenda;
 import com.losAtuendos.los_atuendos_ucompensar.model.TrajeCaballero;
+import com.losAtuendos.los_atuendos_ucompensar.model.VestidoDama;
 import com.losAtuendos.los_atuendos_ucompensar.service.prenda.disfraz.DisfrazFactory;
 import com.losAtuendos.los_atuendos_ucompensar.service.prenda.PrendaFactory;
 import com.losAtuendos.los_atuendos_ucompensar.service.prenda.traje_caballero.TrajeCaballeroFactory;
+import com.losAtuendos.los_atuendos_ucompensar.service.prenda.vestido_dama.VestidoDamaFactory;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.apache.coyote.BadRequestException;
@@ -27,13 +30,15 @@ public class PrendaController {
     private final Validator validator;
     private final DisfrazFactory disfrazFactory;
     private final TrajeCaballeroFactory trajeCaballeroFactory;
+    private final VestidoDamaFactory vestidoDamaFactory;
 
     @Autowired
-    public PrendaController(ObjectMapper mapper, Validator validator, DisfrazFactory disfrazFactory,TrajeCaballeroFactory trajeCaballeroFactory) {
+    public PrendaController(ObjectMapper mapper, Validator validator, DisfrazFactory disfrazFactory, TrajeCaballeroFactory trajeCaballeroFactory , VestidoDamaFactory vestidoDamaFactory) {
         this.mapper = mapper;
         this.validator = validator;
         this.disfrazFactory = disfrazFactory;
         this.trajeCaballeroFactory = trajeCaballeroFactory;
+        this.vestidoDamaFactory = vestidoDamaFactory;
     }
 
     @PostMapping("/{type}")
@@ -78,6 +83,24 @@ public class PrendaController {
                 // Create the TrajeCaballero object
                 prendaParaCrear = new TrajeCaballero(dtoTraje.getRef(), dtoTraje.getColor(), dtoTraje.getMarca(), dtoTraje.getTalla(), dtoTraje.getValorAlquiler(), dtoTraje.getTipo(), dtoTraje.getAderezo());
                 prendaFactory = trajeCaballeroFactory;
+                break;
+            case "vestido_dama":
+                if (!body.containsKey("ref") || !body.containsKey("color") || !body.containsKey("talla") ||
+                        !body.containsKey("valorAlquiler") || !body.containsKey("marca")) {
+                    throw new BadRequestException("faltan propiedades");
+                }
+
+                CrearVestidoDamaDto dtoVestido = mapper.convertValue(body, CrearVestidoDamaDto.class);
+
+                // Validate the DTO
+                Set<ConstraintViolation<CrearVestidoDamaDto>> violationsVestido = validator.validate(dtoVestido);
+                if (!violationsVestido.isEmpty()) {
+                    throw new IllegalArgumentException("Validation failed: " + violationsVestido);
+                }
+
+                // Create the VestidoDama object
+                prendaParaCrear = new VestidoDama(dtoVestido.getRef(), dtoVestido.getColor(), dtoVestido.getMarca(), dtoVestido.getTalla(), dtoVestido.getValorAlquiler(), dtoVestido.getPedreria(), dtoVestido.getAltura(), dtoVestido.getCantPiezas());
+                prendaFactory = vestidoDamaFactory;
                 break;
             default:
                 throw new BadRequestException("Tipo de prenda no soportado");
