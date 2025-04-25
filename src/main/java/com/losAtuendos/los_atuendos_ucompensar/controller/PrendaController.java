@@ -78,6 +78,7 @@ public class PrendaController {
                 // Create the TrajeCaballero object
                 prendaParaCrear = new TrajeCaballero(dtoTraje.getRef(), dtoTraje.getColor(), dtoTraje.getMarca(), dtoTraje.getTalla(), dtoTraje.getValorAlquiler(), dtoTraje.getTipo(), dtoTraje.getAderezo());
                 prendaFactory = trajeCaballeroFactory;
+                break;
             default:
                 throw new BadRequestException("Tipo de prenda no soportado");
         }
