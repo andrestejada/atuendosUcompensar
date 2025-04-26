@@ -6,6 +6,7 @@ import com.losAtuendos.los_atuendos_ucompensar.repository.servicio_alquiler.Serv
 import com.losAtuendos.los_atuendos_ucompensar.repository.servicio_alquiler_prenda.ServicioAlquilerPrendaRepository;
 import com.losAtuendos.los_atuendos_ucompensar.service.ClienteService;
 import com.losAtuendos.los_atuendos_ucompensar.service.EmpleadoService;
+import com.losAtuendos.los_atuendos_ucompensar.service.alquiler.builder.ServicioAlquilerPrendaBuilder;
 import com.losAtuendos.los_atuendos_ucompensar.service.prenda.PrendaService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class AlquilerService {
     private final ServicioAlquilerPrendaRepository servicioAlquilerPrendaRepository;
 
     public AlquilerService(ServicioAlquilerRepository servicioAlquilerRepository, EmpleadoService empleadoService,
-                           ClienteService clienteService ,PrendaService prendaService,ServicioAlquilerPrendaRepository servicioAlquilerPrendaRepository) {
+                           ClienteService clienteService, PrendaService prendaService, ServicioAlquilerPrendaRepository servicioAlquilerPrendaRepository) {
 
         this.servicioAlquilerRepository = servicioAlquilerRepository;
         this.empleadoService = empleadoService;
@@ -46,7 +47,7 @@ public class AlquilerService {
         }
 
         List<Prenda> prendas = this.prendaService.obtenerPrendaPorIds(dto.getIdPrendas());
-        if(prendas.isEmpty()){
+        if (prendas.isEmpty()) {
             throw new BadRequestException("No se encontraron prendas con los ids proporcionados");
 
         }
@@ -63,10 +64,16 @@ public class AlquilerService {
         ServicioAlquiler alquilerCreado = this.servicioAlquilerRepository.guardar(newServicioAlquiler);
 
         List<ServicioAlquilerPrenda> listadoAlquilerPrendas = new ArrayList<>();
-        for (Prenda prenda : prendas){
-            listadoAlquilerPrendas.add(new ServicioAlquilerPrenda(
-                    null,alquilerCreado,prenda,clienteEncontrado,empleadoEncontrado
-            ));
+        for (Prenda prenda : prendas) {
+            ServicioAlquilerPrenda newServicioAlquilerPrenda =
+                    new ServicioAlquilerPrendaBuilder()
+                            .conPrenda(prenda)
+                            .conCliente(clienteEncontrado)
+                            .conEmpleado(empleadoEncontrado)
+                            .conServicioAlquiler(alquilerCreado)
+                            .build();
+
+            listadoAlquilerPrendas.add(newServicioAlquilerPrenda);
         }
 
         this.servicioAlquilerPrendaRepository.guardarListado(listadoAlquilerPrendas);
