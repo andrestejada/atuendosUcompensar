@@ -1,13 +1,13 @@
 package com.losAtuendos.los_atuendos_ucompensar.model;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "disfraz")
+@DiscriminatorValue("DISFRAZ")
 @Data
 public class Disfraz extends Prenda {
     private String nombre;
@@ -18,6 +18,5 @@ public class Disfraz extends Prenda {
     }
 
     public Disfraz() {
-
     }
 }

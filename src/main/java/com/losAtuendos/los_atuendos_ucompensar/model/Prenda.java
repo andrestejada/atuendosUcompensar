@@ -4,9 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_prenda", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "prenda")
 public abstract class Prenda {
 
     @Id
@@ -17,7 +22,10 @@ public abstract class Prenda {
     private String talla;
     private double valorAlquiler;
 
-    public Prenda(Integer ref ,String color,  String marca, String talla, double valorAlquiler) {
+    @OneToMany(mappedBy = "prenda", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ServicioAlquilerPrenda> servicioAlquilerPrendas;
+
+    public Prenda(Integer ref, String color, String marca, String talla, double valorAlquiler) {
         this.ref = ref;
         this.color = color;
         this.marca = marca;

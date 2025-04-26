@@ -16,4 +16,9 @@ public class EmpleadoRepositoryAdapter implements EmpleadosRepository {
     public Empleado guardar(Empleado empleado) {
         return this.empleadoRepositoryJpa.save(empleado);
     }
+
+    @Override
+    public Empleado buscarPorId(Long id) {
+        return this.empleadoRepositoryJpa.findById(id).orElse(null);
+    }
 }

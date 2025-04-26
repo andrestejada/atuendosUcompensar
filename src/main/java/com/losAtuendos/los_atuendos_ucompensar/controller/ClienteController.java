@@ -23,6 +23,6 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public Cliente obtenerCliente(@PathVariable String id) {
+    public Cliente obtenerCliente(@PathVariable Long id) {
         return this.clienteService.obtenerCliente(id);
     }}

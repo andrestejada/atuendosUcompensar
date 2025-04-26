@@ -20,7 +20,7 @@ public class ClienteRepositoryAdapter implements  ClienteRepository{
     }
 
     @Override
-    public Cliente buscarPorId(String id) {
+    public Cliente buscarPorId(Long id) {
         return this.clienteRepositoryJpa.findById(id).orElse(null);
     }
 }

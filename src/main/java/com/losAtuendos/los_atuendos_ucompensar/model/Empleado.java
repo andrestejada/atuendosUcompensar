@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@AllArgsConstructor
 @Table(name = "empleado")
 public class Empleado extends Persona {
     private String cargo;
@@ -19,4 +18,8 @@ public class Empleado extends Persona {
         super(id, nombre, direccion, telefono);
         this.cargo = cargo;
     }
+
+
+
+    public Empleado(){}
 }

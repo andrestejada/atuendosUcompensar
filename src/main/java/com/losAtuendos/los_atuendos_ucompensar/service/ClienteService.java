@@ -26,7 +26,7 @@ public class ClienteService {
         return this.clienteRepository.guardar(newCliente);
     }
 
-    public Cliente obtenerCliente(String id) {
+    public Cliente obtenerCliente(Long id) {
         return this.clienteRepository.buscarPorId(id);
     }
 }

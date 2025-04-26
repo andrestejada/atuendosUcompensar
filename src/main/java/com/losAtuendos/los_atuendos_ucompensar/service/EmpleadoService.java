@@ -25,4 +25,9 @@ public class EmpleadoService {
 
          return this.empleadosRepository.guardar(empleado);
     }
+
+
+    public Empleado buscarEmpleadoPorId(Long id){
+        return this.empleadosRepository.buscarPorId(id);
+    }
 }
