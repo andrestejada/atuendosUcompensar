@@ -1,5 +1,6 @@
 package com.losAtuendos.los_atuendos_ucompensar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public abstract class Prenda {
     private double valorAlquiler;
 
     @OneToMany(mappedBy = "prenda", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<ServicioAlquilerPrenda> servicioAlquilerPrendas;
 
     public Prenda(Integer ref, String color, String marca, String talla, double valorAlquiler) {

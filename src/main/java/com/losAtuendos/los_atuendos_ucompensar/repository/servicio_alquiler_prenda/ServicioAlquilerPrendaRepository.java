@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ServicioAlquilerPrendaRepository {
     List<ServicioAlquilerPrenda> guardarListado(List<ServicioAlquilerPrenda> servicioAlquilerPrendaList);
+    List<ServicioAlquilerPrenda> obtenerPorServicioAlquilerId(Integer servicioAlquilerId);
 }

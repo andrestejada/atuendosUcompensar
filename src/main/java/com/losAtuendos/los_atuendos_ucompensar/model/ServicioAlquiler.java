@@ -1,5 +1,6 @@
 package com.losAtuendos.los_atuendos_ucompensar.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "servicio_alquiler")
 public class    ServicioAlquiler {
+    ServicioAlquiler(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,6 +24,7 @@ public class    ServicioAlquiler {
     private Date fechaAlquiler;
 
     @OneToMany(mappedBy = "servicioAlquiler", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<ServicioAlquilerPrenda> servicioAlquilerPrendas;
 
 

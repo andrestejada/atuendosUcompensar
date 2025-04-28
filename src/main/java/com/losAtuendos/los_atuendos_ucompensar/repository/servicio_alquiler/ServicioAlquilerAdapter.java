@@ -3,6 +3,7 @@ package com.losAtuendos.los_atuendos_ucompensar.repository.servicio_alquiler;
 import com.losAtuendos.los_atuendos_ucompensar.model.ServicioAlquiler;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -18,6 +19,11 @@ public class ServicioAlquilerAdapter implements ServicioAlquilerRepository{
     @Override
     public ServicioAlquiler guardar(ServicioAlquiler servicioAlquiler) {
         return this.servicioAlquilerRepositoryJpa.save(servicioAlquiler);
+    }
+
+    @Override
+    public ServicioAlquiler obtenerPorId(Integer id) {
+        return  this.servicioAlquilerRepositoryJpa.findById(id).orElse(null);
     }
 
 }

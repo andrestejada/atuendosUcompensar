@@ -1,5 +1,6 @@
 package com.losAtuendos.los_atuendos_ucompensar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +11,15 @@ import lombok.Data;
 @Table(name = "servicio_alquiler_prenda")
 public class ServicioAlquilerPrenda {
 
+    ServicioAlquilerPrenda(){}
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "servicio_alquiler_id", nullable = false)
+    @JsonBackReference
     private ServicioAlquiler servicioAlquiler;
 
     @ManyToOne

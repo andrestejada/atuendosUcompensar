@@ -18,4 +18,11 @@ public class ServicioAlquilerPrendaAdapter implements ServicioAlquilerPrendaRepo
     public List<ServicioAlquilerPrenda> guardarListado(List<ServicioAlquilerPrenda> servicioAlquilerPrendaList) {
         return this.servicioAlquilerPrendaRepositoryJpa.saveAll(servicioAlquilerPrendaList);
     }
+
+    @Override
+    public List<ServicioAlquilerPrenda> obtenerPorServicioAlquilerId(Integer servicioAlquilerId) {
+        return this.servicioAlquilerPrendaRepositoryJpa.findByServicioAlquilerId(servicioAlquilerId);
+    }
+
+
 }
