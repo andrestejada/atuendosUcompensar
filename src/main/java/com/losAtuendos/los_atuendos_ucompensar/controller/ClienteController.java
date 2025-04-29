@@ -1,6 +1,7 @@
 package com.losAtuendos.los_atuendos_ucompensar.controller;
 
 
+import com.losAtuendos.los_atuendos_ucompensar.dto.Alquiler.ClienteServiciosDto;
 import com.losAtuendos.los_atuendos_ucompensar.dto.cliente.CrearClienteDto;
 import com.losAtuendos.los_atuendos_ucompensar.model.Cliente;
 import com.losAtuendos.los_atuendos_ucompensar.service.ClienteService;
@@ -25,4 +26,10 @@ public class ClienteController {
     @GetMapping("/{id}")
     public Cliente obtenerCliente(@PathVariable Long id) {
         return this.clienteService.obtenerCliente(id);
-    }}
+    }
+
+    @GetMapping("/alquileres/{id}")
+    public ClienteServiciosDto obtenerClienteAlquileres(@PathVariable Long id){
+        return this.clienteService.obtenerClienteAlquileres(id);
+    }
+}

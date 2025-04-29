@@ -1,5 +1,6 @@
 package com.losAtuendos.los_atuendos_ucompensar.repository.servicio_alquiler_prenda;
 
+import com.losAtuendos.los_atuendos_ucompensar.model.ServicioAlquiler;
 import com.losAtuendos.los_atuendos_ucompensar.model.ServicioAlquilerPrenda;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,11 @@ public interface ServicioAlquilerPrendaRepositoryJpa extends JpaRepository<Servi
     """)
     List<ServicioAlquilerPrenda> findByServicioAlquilerId(@Param("servicioAlquilerId") Integer servicioAlquilerId);
 
+
+    @Query("SELECT DISTINCT sap.servicioAlquiler " +
+            "FROM ServicioAlquilerPrenda sap " +
+            "WHERE sap.cliente.id = :clienteId " +
+            "AND sap.servicioAlquiler.fechaAlquiler >= CURRENT_DATE " +
+            "ORDER BY sap.servicioAlquiler.fechaAlquiler ASC")
+    List<ServicioAlquiler> findServiciosVigentesByClienteId(@Param("clienteId") Long clienteId);
 }

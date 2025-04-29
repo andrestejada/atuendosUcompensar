@@ -2,6 +2,7 @@ package com.losAtuendos.los_atuendos_ucompensar.service.alquiler;
 
 import com.losAtuendos.los_atuendos_ucompensar.dto.Alquiler.CrearAlquilerDto;
 import com.losAtuendos.los_atuendos_ucompensar.dto.AlquilerDetalleDto;
+import com.losAtuendos.los_atuendos_ucompensar.dto.ClienteServiciosDto;
 import com.losAtuendos.los_atuendos_ucompensar.model.*;
 import com.losAtuendos.los_atuendos_ucompensar.repository.servicio_alquiler.ServicioAlquilerRepository;
 import com.losAtuendos.los_atuendos_ucompensar.repository.servicio_alquiler_prenda.ServicioAlquilerPrendaRepository;
@@ -86,5 +87,16 @@ public class AlquilerService {
         List<ServicioAlquilerPrenda> res = this.servicioAlquilerPrendaRepository.obtenerPorServicioAlquilerId(id);
 
        return new AlquilerDetalleDto(res.get(0).getCliente(), res.get(0).getEmpleado(), res.stream().map(ServicioAlquilerPrenda::getPrenda).toList());
+    }
+
+    public ClienteServiciosDto obtenerClienteAlquileres(Long id) throws BadRequestException {
+        Cliente cliente = this.clienteService.obtenerCliente(id);
+        if(cliente == null){
+            throw new BadRequestException("El cliente no existe");
+        }
+
+        List<ServicioAlquiler> serviciosVigente = this.servicioAlquilerPrendaRepository.findServiciosVigentesByClienteId(id);
+
+        return new ClienteServiciosDto(cliente,serviciosVigente);
     }
 }
