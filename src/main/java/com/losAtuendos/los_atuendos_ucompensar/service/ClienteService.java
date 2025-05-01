@@ -1,6 +1,5 @@
 package com.losAtuendos.los_atuendos_ucompensar.service;
 
-import com.losAtuendos.los_atuendos_ucompensar.dto.AlquilerDetalleDto;
 import com.losAtuendos.los_atuendos_ucompensar.dto.Alquiler.ClienteServiciosDto;
 import com.losAtuendos.los_atuendos_ucompensar.dto.cliente.CrearClienteDto;
 import com.losAtuendos.los_atuendos_ucompensar.model.Cliente;

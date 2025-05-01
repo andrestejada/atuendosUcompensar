@@ -1,4 +1,4 @@
-package com.losAtuendos.los_atuendos_ucompensar.dto;
+package com.losAtuendos.los_atuendos_ucompensar.dto.Alquiler;
 
 import com.losAtuendos.los_atuendos_ucompensar.model.Cliente;
 import com.losAtuendos.los_atuendos_ucompensar.model.Empleado;

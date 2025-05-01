@@ -1,8 +1,8 @@
 package com.losAtuendos.los_atuendos_ucompensar.service.alquiler;
 
+import com.losAtuendos.los_atuendos_ucompensar.dto.Alquiler.ClienteServiciosDto;
 import com.losAtuendos.los_atuendos_ucompensar.dto.Alquiler.CrearAlquilerDto;
-import com.losAtuendos.los_atuendos_ucompensar.dto.AlquilerDetalleDto;
-import com.losAtuendos.los_atuendos_ucompensar.dto.ClienteServiciosDto;
+import com.losAtuendos.los_atuendos_ucompensar.dto.Alquiler.*;
 import com.losAtuendos.los_atuendos_ucompensar.model.*;
 import com.losAtuendos.los_atuendos_ucompensar.repository.servicio_alquiler.ServicioAlquilerRepository;
 import com.losAtuendos.los_atuendos_ucompensar.repository.servicio_alquiler_prenda.ServicioAlquilerPrendaRepository;
@@ -13,6 +13,7 @@ import com.losAtuendos.los_atuendos_ucompensar.service.prenda.PrendaService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -98,5 +99,9 @@ public class AlquilerService {
         List<ServicioAlquiler> serviciosVigente = this.servicioAlquilerPrendaRepository.findServiciosVigentesByClienteId(id);
 
         return new ClienteServiciosDto(cliente,serviciosVigente);
+    }
+
+    public List<ServicioAlquilerPrenda> obtenerServiciosPorFecha(LocalDate fechaAlquiler) {
+        return this.servicioAlquilerPrendaRepository.findByFechaAlquiler(fechaAlquiler);
     }
 }

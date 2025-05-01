@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class CrearAlquilerDto {
 
 
     @NotNull
-    private Date fechaAlquiler;
+    private LocalDate fechaAlquiler;
 
     @NotNull
     @Size(min = 1, message = "Debe haber al menos un ID de prenda.")

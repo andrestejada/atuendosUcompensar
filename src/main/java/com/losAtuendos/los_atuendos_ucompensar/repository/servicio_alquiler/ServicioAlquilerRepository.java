@@ -7,4 +7,5 @@ import java.util.List;
 public interface ServicioAlquilerRepository {
     ServicioAlquiler guardar(ServicioAlquiler servicioAlquiler);
     ServicioAlquiler obtenerPorId(Integer id);
+
 }

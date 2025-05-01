@@ -4,6 +4,7 @@ import com.losAtuendos.los_atuendos_ucompensar.model.ServicioAlquiler;
 import com.losAtuendos.los_atuendos_ucompensar.model.ServicioAlquilerPrenda;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -27,7 +28,12 @@ public class ServicioAlquilerPrendaAdapter implements ServicioAlquilerPrendaRepo
 
     @Override
     public List<ServicioAlquiler> findServiciosVigentesByClienteId(Long clienteId) {
-        return this.findServiciosVigentesByClienteId(clienteId);
+        return this.servicioAlquilerPrendaRepositoryJpa.obtenerServiciosVigentesByClienteId(clienteId);
+    }
+
+    @Override
+    public List<ServicioAlquilerPrenda> findByFechaAlquiler(LocalDate fechaAlquiler) {
+        return this.servicioAlquilerPrendaRepositoryJpa.findByFechaAlquiler(fechaAlquiler);
     }
 
 

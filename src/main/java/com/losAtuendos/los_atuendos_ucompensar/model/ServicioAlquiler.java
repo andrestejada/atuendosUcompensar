@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class    ServicioAlquiler {
 
     private Date fechaSolicitud;
 
-    private Date fechaAlquiler;
+    private LocalDate fechaAlquiler;
 
     @OneToMany(mappedBy = "servicioAlquiler", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

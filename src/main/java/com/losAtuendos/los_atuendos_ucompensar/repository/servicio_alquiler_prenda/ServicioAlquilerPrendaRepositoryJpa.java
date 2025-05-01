@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ServicioAlquilerPrendaRepositoryJpa extends JpaRepository<ServicioAlquilerPrenda,Long> {
@@ -26,5 +27,15 @@ public interface ServicioAlquilerPrendaRepositoryJpa extends JpaRepository<Servi
             "WHERE sap.cliente.id = :clienteId " +
             "AND sap.servicioAlquiler.fechaAlquiler >= CURRENT_DATE " +
             "ORDER BY sap.servicioAlquiler.fechaAlquiler ASC")
-    List<ServicioAlquiler> findServiciosVigentesByClienteId(@Param("clienteId") Long clienteId);
+    List<ServicioAlquiler> obtenerServiciosVigentesByClienteId(@Param("clienteId") Long clienteId);
+
+    @Query("""
+    SELECT sap 
+    FROM ServicioAlquilerPrenda sap
+    JOIN FETCH sap.empleado
+    JOIN FETCH sap.cliente
+    JOIN FETCH sap.prenda
+    WHERE sap.servicioAlquiler.fechaAlquiler = :fechaAlquiler
+""")
+    List<ServicioAlquilerPrenda> findByFechaAlquiler(@Param("fechaAlquiler") LocalDate fechaAlquiler);
 }
