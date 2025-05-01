@@ -8,8 +8,9 @@ import com.losAtuendos.los_atuendos_ucompensar.model.Disfraz;
 import com.losAtuendos.los_atuendos_ucompensar.model.Prenda;
 import com.losAtuendos.los_atuendos_ucompensar.model.TrajeCaballero;
 import com.losAtuendos.los_atuendos_ucompensar.model.VestidoDama;
-import com.losAtuendos.los_atuendos_ucompensar.service.prenda.disfraz.DisfrazFactory;
 import com.losAtuendos.los_atuendos_ucompensar.service.prenda.PrendaFactory;
+import com.losAtuendos.los_atuendos_ucompensar.service.prenda.PrendaService;
+import com.losAtuendos.los_atuendos_ucompensar.service.prenda.disfraz.DisfrazFactory;
 import com.losAtuendos.los_atuendos_ucompensar.service.prenda.traje_caballero.TrajeCaballeroFactory;
 import com.losAtuendos.los_atuendos_ucompensar.service.prenda.vestido_dama.VestidoDamaFactory;
 import jakarta.validation.ConstraintViolation;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,14 +33,16 @@ public class PrendaController {
     private final DisfrazFactory disfrazFactory;
     private final TrajeCaballeroFactory trajeCaballeroFactory;
     private final VestidoDamaFactory vestidoDamaFactory;
+    private PrendaService prendaService;
 
     @Autowired
-    public PrendaController(ObjectMapper mapper, Validator validator, DisfrazFactory disfrazFactory, TrajeCaballeroFactory trajeCaballeroFactory , VestidoDamaFactory vestidoDamaFactory) {
+    public PrendaController(ObjectMapper mapper, Validator validator, DisfrazFactory disfrazFactory, TrajeCaballeroFactory trajeCaballeroFactory, VestidoDamaFactory vestidoDamaFactory, PrendaService prendaService) {
         this.mapper = mapper;
         this.validator = validator;
         this.disfrazFactory = disfrazFactory;
         this.trajeCaballeroFactory = trajeCaballeroFactory;
         this.vestidoDamaFactory = vestidoDamaFactory;
+        this.prendaService = prendaService;
     }
 
     @PostMapping("/{type}")
@@ -108,5 +112,10 @@ public class PrendaController {
 
         prendaFactory.guardarPrenda(prendaParaCrear);
         return ResponseEntity.status(201).body("Prenda creada con éxito");
+    }
+
+    @GetMapping("/talla/{talla}")
+    public Map<String, List<Prenda>> obtenerPrendasPorTalla(@PathVariable String talla) {
+        return prendaService.consultarPrendasPorTalla(talla.toLowerCase());
     }
 }

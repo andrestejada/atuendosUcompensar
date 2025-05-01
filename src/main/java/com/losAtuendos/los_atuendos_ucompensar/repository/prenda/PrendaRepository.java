@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PrendaRepository {
     List<Prenda> obtenerPrendaPorIds(List<Integer> ids);
+    List<Prenda> findByTalla(String talla);
 }
