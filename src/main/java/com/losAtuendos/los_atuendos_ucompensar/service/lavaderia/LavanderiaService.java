@@ -1,5 +1,4 @@
-package com.losAtuendos.los_atuendos_ucompensar.service;
-
+package com.losAtuendos.los_atuendos_ucompensar.service.lavaderia;
 import com.losAtuendos.los_atuendos_ucompensar.model.LavanderiaRegistro;
 import com.losAtuendos.los_atuendos_ucompensar.model.Prenda;
 import com.losAtuendos.los_atuendos_ucompensar.repository.lavanderia_registro.*;
