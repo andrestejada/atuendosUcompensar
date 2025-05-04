@@ -30,4 +30,8 @@ public class PrendaService {
         return prendas.stream()
                 .collect(Collectors.groupingBy(prenda -> prenda.getClass().getSimpleName()));
     }
+
+    public Prenda obtenerPrendaPorId(Integer id) {
+        return this.prendaRepository.obtenerPrendaPorId(id);
+    }
 }

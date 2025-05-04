@@ -23,4 +23,9 @@ public class PrendaAdapter implements PrendaRepository{
     public List<Prenda> findByTalla(String talla) {
         return this.prendaRespositoryJpa.findByTalla(talla);
     }
+
+    @Override
+    public Prenda obtenerPrendaPorId(Integer id) {
+        return this.prendaRespositoryJpa.findById(id).orElse(null);
+    }
 }
