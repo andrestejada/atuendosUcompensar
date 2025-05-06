@@ -31,7 +31,7 @@ public class LavanderiaService {
     }
 
     public List<LavanderiaRegistro> obtenerPrendasEnLavanderia() {
-        return lavanderiaRepository.obtenerTodosLosRegistros();
+        return lavanderiaRepository.obtenerRegistrosPorEstado("pendiente");
     }
 
     public List<LavanderiaRegistro> enviarPrendasALavanderia(int cantidad) {

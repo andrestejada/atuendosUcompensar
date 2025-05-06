@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface LavanderiaRepositoryJpa extends JpaRepository<LavanderiaRegistro,Long> {
     List<LavanderiaRegistro> findByEstado(String estado);
+    List<LavanderiaRegistro> findAllByEstado(String estado);
 }
