@@ -23,4 +23,14 @@ public class LavanderiaRepositoryAdapter implements LavanderiaRepository {
     public List<LavanderiaRegistro> obtenerTodosLosRegistros() {
         return this.lavanderiaRepositoryJpa.findAll();
     }
+
+    @Override
+    public List<LavanderiaRegistro> obtenerRegistrosPorEstado(String estado) {
+        return this.lavanderiaRepositoryJpa.findByEstado(estado);
+    }
+
+    @Override
+    public void guardarListado(List<LavanderiaRegistro> registros) {
+        this.lavanderiaRepositoryJpa.saveAll(registros);
+    }
 }

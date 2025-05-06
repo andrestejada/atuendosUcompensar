@@ -30,4 +30,10 @@ public class LavanderiaController {
         List<LavanderiaRegistro> registros = lavanderiaService.obtenerPrendasEnLavanderia();
         return ResponseEntity.ok(registros);
     }
+
+    @PostMapping("/enviar/{cantidad}")
+    public ResponseEntity<List<LavanderiaRegistro>> enviarPrendas(@PathVariable int cantidad) {
+        List<LavanderiaRegistro> registrosEnviados = lavanderiaService.enviarPrendasALavanderia(cantidad);
+        return ResponseEntity.ok(registrosEnviados);
+    }
 }

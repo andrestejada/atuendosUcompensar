@@ -33,4 +33,26 @@ public class LavanderiaService {
     public List<LavanderiaRegistro> obtenerPrendasEnLavanderia() {
         return lavanderiaRepository.obtenerTodosLosRegistros();
     }
+
+    public List<LavanderiaRegistro> enviarPrendasALavanderia(int cantidad) {
+        List<LavanderiaRegistro> registrosPendientes = lavanderiaRepository.obtenerRegistrosPorEstado("pendiente");
+
+        if (registrosPendientes.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No hay prendas pendientes para enviar");
+        }
+
+        if (registrosPendientes.size() < cantidad) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No hay suficientes prendas pendientes para enviar");
+        }
+
+        registrosPendientes.sort((r1, r2) -> Boolean.compare(r2.isPrioridad(), r1.isPrioridad()));
+
+
+
+        List<LavanderiaRegistro> registrosAEnviar = registrosPendientes.subList(0, cantidad);
+        registrosAEnviar.forEach(registro -> registro.setEstado("enviado"));
+        lavanderiaRepository.guardarListado(registrosAEnviar);
+
+        return registrosAEnviar;
+    }
 }
