@@ -14,8 +14,9 @@ public class LavanderiaRegistro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Integer prendaRef;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "prenda_id", nullable = false)
+    private Prenda prenda;
 
     @Column(nullable = false)
     private boolean prioridad;
@@ -23,8 +24,8 @@ public class LavanderiaRegistro {
     @Column(nullable = false)
     private String estado = "pendiente";
 
-    public LavanderiaRegistro(Integer prendaRef, boolean prioridad) {
-        this.prendaRef = prendaRef;
+    public LavanderiaRegistro(Prenda prenda, boolean prioridad) {
+        this.prenda = prenda;
         this.prioridad = prioridad;
     }
 }

@@ -26,7 +26,7 @@ public class LavanderiaService {
         if (prendaEncotrada == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Prenda no encontrada");
         }
-        LavanderiaRegistro registro = new LavanderiaRegistro(prendaRef, prioridad);
+        LavanderiaRegistro registro = new LavanderiaRegistro(prendaEncotrada, prioridad);
         return lavanderiaRepository.guardarRegistro(registro);
     }
 
