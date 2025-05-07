@@ -15,15 +15,13 @@ import java.util.List;
 public class LavanderiaController {
 
     private final LavanderiaService lavanderiaService;
-    private final LavanderiaFacade lavanderiaFacade;
-    public LavanderiaController(LavanderiaService lavanderiaService , LavanderiaFacade lavanderiaFacade) {
+    public LavanderiaController(LavanderiaService lavanderiaService) {
         this.lavanderiaService = lavanderiaService;
-        this.lavanderiaFacade = lavanderiaFacade;
     }
 
     @PostMapping("/registrar")
     public ResponseEntity<LavanderiaRegistro> registrarPrenda(@RequestBody @Valid RegistrarPrenda registrarPrenda) {
-        LavanderiaRegistro registro = lavanderiaFacade.registrarPrenda(registrarPrenda);
+        LavanderiaRegistro registro = lavanderiaService.registrarPrendaParaLavanderia(registrarPrenda.getPrendaRef(),registrarPrenda.isPrioridad());
         return ResponseEntity.status(201).body(registro);
     }
 
