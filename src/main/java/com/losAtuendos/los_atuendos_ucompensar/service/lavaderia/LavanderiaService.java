@@ -5,12 +5,15 @@ import com.losAtuendos.los_atuendos_ucompensar.repository.lavanderia_registro.*;
 import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.strategy.EstrategiaRegistro;
 import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.strategy.RegistroNormal;
 import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.strategy.RegistroPrioritario;
+import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.observer.LavanderiaLoggerObserver;
+import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.observer.LavanderiaNotificationObserver;
+import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.observer.LavanderiaObserver;
 import com.losAtuendos.los_atuendos_ucompensar.service.prenda.PrendaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,11 +21,28 @@ public class LavanderiaService {
 
     private final LavanderiaRepository lavanderiaRepository;
     private final PrendaService prendaService;
+    private final List<LavanderiaObserver> observers = new ArrayList<>();
     private EstrategiaRegistro estrategiaRegistro;
 
     public LavanderiaService(LavanderiaRepository lavanderiaRepository, PrendaService prendaService) {
         this.lavanderiaRepository = lavanderiaRepository;
         this.prendaService = prendaService;
+        this.observers.add(new LavanderiaLoggerObserver());
+        this.observers.add(new LavanderiaNotificationObserver());
+    }
+
+    public void addObserver(LavanderiaObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(LavanderiaObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers(List<LavanderiaRegistro> registros) {
+        for (LavanderiaObserver observer : observers) {
+            observer.onPrendasEnviadas(registros);
+        }
     }
 
 
@@ -52,6 +72,7 @@ public class LavanderiaService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No hay suficientes prendas pendientes para enviar");
         }
 
+        registrosPendientes.sort((r1, r2) -> Boolean.compare(r2.isPrioridad(), r1.isPrioridad()));
 
 
 
