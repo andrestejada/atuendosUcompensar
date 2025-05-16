@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "95532fd5-60b6-43a5-a074-d541c0d5cb5d",
+		"name": "atuendo ucompensar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14677748"
+	},
+	"item": [
+		{
+			"name": "crear empleado",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"daniela\",\r\n    \"cargo\": \"vendedor\",\r\n    \"telefono\": \"3165327601\",\r\n    \"direccion\": \"calle falsa 78412\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/empleado",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"empleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"luisa\",\r\n    \"email\": \"luisa@correo.com\",\r\n    \"telefono\": \"3005327601\",\r\n    \"direccion\": \"calle falsa 123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener cliente por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener cliente alquileres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/alquileres/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"alquileres",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear prenda - disfraz",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/disfraz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disfraz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear prenda - traje caballero",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ref\":789,\r\n    \"marca\":\"gucci\",\r\n    \"color\":\"negro\",\r\n    \"talla\":\"M\",\r\n    \"valorAlquiler\": 100.000,\r\n    \"tipo\":\"convencional\",\r\n    \"aderezo\":\"corbata\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/prenda/traje_caballero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prenda",
+						"traje_caballero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear prenda - vestido dama",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ref\": 12345,\r\n  \"color\": \"Verde\",\r\n  \"talla\": \"L\",\r\n  \"valorAlquiler\": 150.000,\r\n  \"marca\": \"Elegance\",\r\n  \"pedreria\": true,\r\n  \"altura\": \"Corto\",\r\n  \"cantPiezas\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/prenda/vestido_dama",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prenda",
+						"vestido_dama"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear alquiler",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fechaAlquiler\": \"2025-10-25T00:00:00\",\r\n  \"idPrendas\": [12345,789],\r\n  \"idCliente\": 2,\r\n  \"idEmpleado\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/alquiler",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"alquiler"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener servicio de alquiler",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/alquiler/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"alquiler",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "202"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener alquiler por fecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/alquiler/fecha/2025-10-24",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"alquiler",
+						"fecha",
+						"2025-10-24"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener prendas por talla",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/prenda/talla/s",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prenda",
+						"talla",
+						"s"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrar prenda lavanderia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"prendaRef\": 789,\r\n    \"prioridad\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/lavanderia/registrar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lavanderia",
+						"registrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "enviar prendas a lavanderia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/lavanderia/enviar/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lavanderia",
+						"enviar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar prendas lavanderia",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/lavanderia/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lavanderia",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
