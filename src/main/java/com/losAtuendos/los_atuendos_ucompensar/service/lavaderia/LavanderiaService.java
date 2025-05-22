@@ -2,9 +2,6 @@ package com.losAtuendos.los_atuendos_ucompensar.service.lavaderia;
 import com.losAtuendos.los_atuendos_ucompensar.model.LavanderiaRegistro;
 import com.losAtuendos.los_atuendos_ucompensar.model.Prenda;
 import com.losAtuendos.los_atuendos_ucompensar.repository.lavanderia_registro.*;
-import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.strategy.EstrategiaRegistro;
-import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.strategy.RegistroNormal;
-import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.strategy.RegistroPrioritario;
 import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.observer.LavanderiaLoggerObserver;
 import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.observer.LavanderiaNotificationObserver;
 import com.losAtuendos.los_atuendos_ucompensar.service.lavaderia.observer.LavanderiaObserver;
@@ -22,7 +19,6 @@ public class LavanderiaService {
     private final LavanderiaRepository lavanderiaRepository;
     private final PrendaService prendaService;
     private final List<LavanderiaObserver> observers = new ArrayList<>();
-    private EstrategiaRegistro estrategiaRegistro;
 
     public LavanderiaService(LavanderiaRepository lavanderiaRepository, PrendaService prendaService) {
         this.lavanderiaRepository = lavanderiaRepository;
@@ -47,13 +43,11 @@ public class LavanderiaService {
 
 
     public LavanderiaRegistro registrarPrendaParaLavanderia(Integer prendaRef, boolean prioridad) {
-        Prenda prendaEncontrada = this.prendaService.obtenerPrendaPorId(prendaRef);
-        if (prendaEncontrada == null) {
+        Prenda prendaEncotrada = this.prendaService.obtenerPrendaPorId(prendaRef);
+        if (prendaEncotrada == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Prenda no encontrada");
         }
-
-        estrategiaRegistro = prioridad ? new RegistroPrioritario() : new RegistroNormal();
-        LavanderiaRegistro registro = estrategiaRegistro.registrarPrenda(prendaEncontrada);
+        LavanderiaRegistro registro = new LavanderiaRegistro(prendaEncotrada, prioridad);
         return lavanderiaRepository.guardarRegistro(registro);
     }
 
@@ -77,7 +71,7 @@ public class LavanderiaService {
 
 
         List<LavanderiaRegistro> registrosAEnviar = registrosPendientes.subList(0, cantidad);
-        registrosAEnviar.forEach(registro -> registro.setEstado("enviado"));
+        registrosAEnviar.forEach(LavanderiaRegistro::enviar);
         lavanderiaRepository.guardarListado(registrosAEnviar);
 
         return registrosAEnviar;
