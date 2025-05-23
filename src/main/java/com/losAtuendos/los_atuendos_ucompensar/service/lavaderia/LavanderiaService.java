@@ -73,7 +73,7 @@ public class LavanderiaService {
         List<LavanderiaRegistro> registrosAEnviar = registrosPendientes.subList(0, cantidad);
         registrosAEnviar.forEach(LavanderiaRegistro::enviar);
         lavanderiaRepository.guardarListado(registrosAEnviar);
-
+        notifyObservers(registrosAEnviar);
         return registrosAEnviar;
     }
 }
